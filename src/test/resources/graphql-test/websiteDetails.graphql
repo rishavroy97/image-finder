@@ -1,0 +1,6 @@
+query websiteDetails {
+    websites {
+        name
+        url
+    }
+}

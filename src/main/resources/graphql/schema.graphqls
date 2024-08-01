@@ -1,0 +1,43 @@
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Query {
+    websiteById(id: ID): Website
+    websites: [Website]
+}
+
+type Mutation {
+    upsertWebsite(website: UpsertWebsiteInput): Website
+}
+
+type Image {
+    id: ID
+    url: String
+}
+
+type Website {
+    id: ID
+    url: String
+    name: String
+    images: [Image]
+}
+
+input StudentInput {
+    name: String
+    email: String
+    dob: String
+}
+
+input UpdateStudentInput {
+    id: ID
+    name: String
+    email: String
+}
+
+input UpsertWebsiteInput {
+    name: String
+    url: String
+    levels: Int
+}

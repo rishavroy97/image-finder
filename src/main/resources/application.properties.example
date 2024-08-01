@@ -1,0 +1,17 @@
+spring.application.name=imagefinder
+spring.graphql.graphiql.enabled=true
+
+spring.datasource.url=jdbc:postgresql://localhost:5432/student
+spring.datasource.username=
+spring.datasource.password=
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=false
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.format_sql=true
+
+server.error.include-message=always
+
+crawler.max_width=500
+crawler.user_agent="Mozilla/5.0"
+crawler.n_threads=16
+crawler.num_links_per_url=50
