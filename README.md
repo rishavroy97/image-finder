@@ -1,6 +1,6 @@
 # ImageFinder
 
-ImageFinder is a Spring Boot web application that exposes a GraphQL endpoint. The application crawls a given website URL and retrieves a list of all images found on the site up to a specified depth level.
+ImageFinder is a Spring Boot web application that exposes a GraphQL endpoint. The application leverages a multi-threaded BFS crawl on a given website URL and retrieves a list of all images found on the site up to a specified depth level.
 
 ## Features
 
