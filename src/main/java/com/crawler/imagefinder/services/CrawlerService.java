@@ -1,6 +1,5 @@
 package com.crawler.imagefinder.services;
 
-import com.crawler.imagefinder.exceptions.ClientSideException;
 import crawlercommons.robots.BaseRobotRules;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

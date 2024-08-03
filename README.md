@@ -55,8 +55,8 @@ The application exposes a GraphQL endpoint at:
 To retrieve images from a website, you can use the following query structure:
 
 ```graphql
-mutation {
-    upsertWebsite(website: {
+query {
+    findImages(website: {
         url: "https://pytorch.org/"
         name: "PyTorch"
         levels: 4

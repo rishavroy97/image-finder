@@ -2,7 +2,6 @@ package com.crawler.imagefinder.services;
 
 import com.crawler.imagefinder.models.Image;
 import com.crawler.imagefinder.models.Website;
-import com.crawler.imagefinder.repositories.ImageRepository;
 import com.crawler.imagefinder.repositories.WebsiteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +29,7 @@ public class WebsiteService {
     public Website getWebsiteById(UUID id) {
         Optional<Website> website = websiteRepository.findById(id);
 
-        if(website.isEmpty()) {
+        if (website.isEmpty()) {
             throw new IllegalStateException("Website does not exist");
         }
 
@@ -42,7 +41,7 @@ public class WebsiteService {
     }
 
     @Transactional
-    public Website upsertWebsite(Website website) {
+    public Website upsertImages(Website website) {
         String url = website.getUrl();
         int levels = website.getLevels();
 
@@ -54,14 +53,16 @@ public class WebsiteService {
 
         Website updatedWebsite = null;
 
-        if(existingWebsite.isEmpty()) {
+        if (existingWebsite.isEmpty()) {
             updatedWebsite = websiteRepository.save(website);
         }
 
-        if(existingWebsite.isPresent()) {
-            updatedWebsite = existingWebsite.get();
-            updatedWebsite.setLevels(levels);
-            updatedWebsite.setName(website.getName());
+        if (existingWebsite.isPresent()) {
+            updatedWebsite = new Website(
+                    url,
+                    website.getName(),
+                    levels
+            );
             imageService.removeImages(updatedWebsite);
         }
 
