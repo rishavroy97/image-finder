@@ -1,7 +1,7 @@
 services:
-  app:
+  backend:
     build:
-      context: .
+      context: ./backend
       dockerfile: Dockerfile
     ports:
       - "8080:8080"
@@ -9,8 +9,8 @@ services:
       - db
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/imagefinder
-      SPRING_DATASOURCE_USERNAME:
-      SPRING_DATASOURCE_PASSWORD:
+      SPRING_DATASOURCE_USERNAME: 
+      SPRING_DATASOURCE_PASSWORD: 
     container_name: backend
 
   db:
@@ -19,11 +19,21 @@ services:
       - "5432:5432"
     environment:
       POSTGRES_DB: imagefinder
-      POSTGRES_USER:
-      POSTGRES_PASSWORD:
+      POSTGRES_USER: 
+      POSTGRES_PASSWORD: 
     volumes:
       - pg_data:/var/lib/postgresql/data
     container_name: postgres
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    depends_on:
+      - backend
+    container_name: frontend
 
 volumes:
   pg_data:
