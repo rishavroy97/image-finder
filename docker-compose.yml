@@ -1,0 +1,29 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/imagefinder
+      SPRING_DATASOURCE_USERNAME:
+      SPRING_DATASOURCE_PASSWORD:
+    container_name: backend
+
+  db:
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: imagefinder
+      POSTGRES_USER:
+      POSTGRES_PASSWORD:
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    container_name: postgres
+
+volumes:
+  pg_data:

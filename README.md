@@ -13,8 +13,9 @@ ImageFinder is a Spring Boot web application that exposes a GraphQL endpoint. Th
 
 ### Prerequisites
 
-- **Java 17** or later
+- **Java 21**
 - **Maven** for building the project
+- **Docker** for running the project along with a PostgreSQL Database
 
 ### Installation
 
@@ -31,7 +32,7 @@ ImageFinder is a Spring Boot web application that exposes a GraphQL endpoint. Th
     mvn clean install
     ```
 
-3. **Run the application**:
+3. **Build **:
 
     ```bash
     mvn spring-boot:run
@@ -41,7 +42,8 @@ ImageFinder is a Spring Boot web application that exposes a GraphQL endpoint. Th
 
 - **Application Properties**:
   - Copy the base properties from `src/main/resources/application.properties.example`
-  - Configure the application in the `src/main/resources/application.properties` 
+  - Configure the application in the `src/main/resources/application.properties` by updating username and password
+  - Enter the db username and password in `docker-compose.yml`
 
 ### GraphQL Endpoint
 
