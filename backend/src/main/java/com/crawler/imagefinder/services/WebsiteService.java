@@ -5,6 +5,7 @@ import com.crawler.imagefinder.models.Website;
 import com.crawler.imagefinder.repositories.WebsiteRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -51,25 +52,24 @@ public class WebsiteService {
             return existingWebsite.get();
         }
 
-        Website updatedWebsite = null;
+        Website updatedWebsite = saveNewWebsite(website, existingWebsite);
+        return updateImages(updatedWebsite);
+    }
 
-        if (existingWebsite.isEmpty()) {
-            updatedWebsite = websiteRepository.save(website);
+    private Website saveNewWebsite(Website website, Optional<Website> existingWebsite) {
+        if(existingWebsite.isPresent()) {
+            existingWebsite.get().setName(website.getName());
+            existingWebsite.get().setUrl(website.getUrl());
+            existingWebsite.get().setLevels(website.getLevels());
         }
+        return websiteRepository.save(website);
+    }
 
-        if (existingWebsite.isPresent()) {
-            updatedWebsite = new Website(
-                    url,
-                    website.getName(),
-                    levels
-            );
-            imageService.removeImages(updatedWebsite);
-        }
+    private Website updateImages(Website website) {
+        imageService.removeImages(website);
+        List<Image> images = imageService.downloadImages(website);
+        website.setImages(images);
 
-        List<Image> images = imageService.downloadImages(updatedWebsite);
-
-        updatedWebsite.setImages(images);
-
-        return updatedWebsite;
+        return websiteRepository.save(website);
     }
 }
